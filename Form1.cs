@@ -119,10 +119,7 @@ namespace GrapphicsPartOfLr2_graphics_
             {
                 for (int j = 0; j < 2; j++)
                 {
-                    if (j==1)
-                    {
-                        Matrix[i, j] = -Convert.ToInt32(cordMatrixReader.Rows[i].Cells[j].Value);
-                    }
+                    
                     Matrix[i, j] = Convert.ToInt32(cordMatrixReader.Rows[i].Cells[j].Value);
 
                 }
@@ -154,9 +151,9 @@ namespace GrapphicsPartOfLr2_graphics_
         } 
         public void DrawOYFigure(Graphics graphics)
         {
-            int[,] oy = {
-                { -1,0},
-                { 0,1}
+           int[,] oy = {
+                { -1,0}, 
+                { 0, 1}
             };
 
             Point[] Cords = new Point[cordMatrixReader.RowCount];
@@ -170,7 +167,7 @@ namespace GrapphicsPartOfLr2_graphics_
                         Cords[i].X = Matrix[i, j];
                     }
                     else
-                        Cords[i].Y = -Matrix[i, j] ;
+                        Cords[i].Y = Matrix[i, j] ;
                 }
             }
             Pen pen = new Pen(Color.Black);
@@ -284,7 +281,7 @@ namespace GrapphicsPartOfLr2_graphics_
 
         private void drawArea_Paint(object sender, PaintEventArgs e)
         {
-            int w = drawArea.ClientSize.Width / 2;
+            int w = drawArea.ClientSize.Width / 2; 
             int h = drawArea.ClientSize.Height / 2;
             e.Graphics.TranslateTransform(w, h);
             DrawX(new Point(-w, 0), new Point(w, 0), e.Graphics);
