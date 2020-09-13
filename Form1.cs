@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GrapphicsPartOfLr2_graphics_
@@ -16,7 +10,7 @@ namespace GrapphicsPartOfLr2_graphics_
         {
             InitializeComponent();
         }
-        static int[,] MirrorXY(int[,] xy, int[,] mxy, int[,] Cordmatrix)
+        public int[,] MirrorXY(int[,] xy, int[,] mxy, int[,] Cordmatrix)
         {
             int[,] NewMatrix = new int[Cordmatrix.GetLength(0), 2];
             bool fl = false;
@@ -57,7 +51,7 @@ namespace GrapphicsPartOfLr2_graphics_
 
             return NewMatrix;
         }
-        static int[,] MirrorOX(int[,] ox, int[,] Cordmatrix)
+        public int[,] MirrorOX(int[,] ox, int[,] Cordmatrix)
         {
             int[,] NewMatrix = new int[Cordmatrix.GetLength(0), 2];
             for (int w = 0; w < Cordmatrix.GetLength(0); w++)
@@ -73,7 +67,7 @@ namespace GrapphicsPartOfLr2_graphics_
 
             return NewMatrix;
         }
-        static int[,] MirrorOY(int[,] oy, int[,] Cordmatrix)
+        public int[,] MirrorOY(int[,] oy, int[,] Cordmatrix)
         {
             int[,] NewMatrix = new int[Cordmatrix.GetLength(0), 2];
             for (int w = 0; w < Cordmatrix.GetLength(0); w++)
@@ -123,30 +117,111 @@ namespace GrapphicsPartOfLr2_graphics_
 
             for (int i = 0; i < l; i++)
             {
-                for (int j = 0; j <2 ; j++)
+                for (int j = 0; j < 2; j++)
                 {
-                    Matrix[i, j] = Convert.ToInt32( cordMatrixReader.Rows[i].Cells[j].Value);
-                    
+                    if (j==1)
+                    {
+                        Matrix[i, j] = -Convert.ToInt32(cordMatrixReader.Rows[i].Cells[j].Value);
+                    }
+                    Matrix[i, j] = Convert.ToInt32(cordMatrixReader.Rows[i].Cells[j].Value);
+
                 }
 
             }
-           
+
             return Matrix;
         }
-        public void DrawMatrix(Graphics graphics)
+        public void DrawDefoultFigure(Graphics graphics)
         {
+
             Point[] Cords = new Point[cordMatrixReader.RowCount];
-            int[,] Matrix = ReadMatrix(Convert.ToInt32( lengthReader.Text));
+            int[,] Matrix = ReadMatrix(Convert.ToInt32(lengthReader.Text));
             for (int i = 0; i < Matrix.GetLength(0); i++)
             {
                 for (int j = 0; j < 2; j++)
                 {
                     if (j == 0)
                     {
-                        Cords[i].X += Matrix[i, j];
+                        Cords[i].X = Matrix[i, j];
                     }
                     else
-                        Cords[i].Y += Matrix[i, j];
+                        Cords[i].Y = -Matrix[i, j] ;
+                }
+            }
+            Pen pen = new Pen(Color.Black);
+            pen.Width = 2;
+            graphics.DrawPolygon(pen, Cords);
+        } 
+        public void DrawOYFigure(Graphics graphics)
+        {
+            int[,] oy = {
+                { -1,0},
+                { 0,1}
+            };
+
+            Point[] Cords = new Point[cordMatrixReader.RowCount];
+            int[,] Matrix = MirrorOY(oy, ReadMatrix(Convert.ToInt32(lengthReader.Text)));
+            for (int i = 0; i < Matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    if (j == 0)
+                    {
+                        Cords[i].X = Matrix[i, j];
+                    }
+                    else
+                        Cords[i].Y = -Matrix[i, j] ;
+                }
+            }
+            Pen pen = new Pen(Color.Black);
+            pen.Width = 2;
+            graphics.DrawPolygon(pen, Cords);
+        } 
+        public void DrawOXFigure(Graphics graphics)
+        {
+            int[,] ox = {
+                { 1,0},
+                { 0,-1}
+            };
+            Point[] Cords = new Point[cordMatrixReader.RowCount];
+            int[,] Matrix = MirrorOX(ox, ReadMatrix(Convert.ToInt32(lengthReader.Text)));
+            for (int i = 0; i < Matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    if (j == 0)
+                    {
+                        Cords[i].X = Matrix[i, j];
+                    }
+                    else
+                        Cords[i].Y = -Matrix[i, j] ;
+                }
+            }
+            Pen pen = new Pen(Color.Black);
+            pen.Width = 2;
+            graphics.DrawPolygon(pen, Cords);
+        }
+        public void DrawDiscretFigure(Graphics graphics)
+        {
+            Double f= Convert.ToDouble(rotationCoefReader.Text);
+            int[,] disc = {
+                {Convert.ToInt32 (Math.Cos(f)/180*Math.PI),Convert.ToInt32( Math.Sin(f)/180*Math.PI)},
+                {Convert.ToInt32( Math.Sin(-f)/180*Math.PI),Convert.ToInt32( Math.Cos(f)/180*Math.PI)}
+            };
+
+            Point[] Cords = new Point[cordMatrixReader.RowCount];
+            int[,] Matrix =DiscRotation(disc, ReadMatrix(Convert.ToInt32(lengthReader.Text)));
+
+            for (int i = 0; i < Matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < 2; j++)
+                {
+                    if (j == 0)
+                    {
+                        Cords[i].X = Matrix[i, j];
+                    }
+                    else
+                        Cords[i].Y = -Matrix[i, j] ;
                 }
             }
             Pen pen = new Pen(Color.Black);
@@ -177,7 +252,7 @@ namespace GrapphicsPartOfLr2_graphics_
             drawArea.Visible = true;
             drawArea.Enabled = true;
             drawArea.Paint += drawArea_Paint;
-            
+
         }
 
         private void lengthApplyButton_Click(object sender, EventArgs e)
@@ -190,8 +265,8 @@ namespace GrapphicsPartOfLr2_graphics_
         private void drawButton_Click(object sender, EventArgs e)
         {
 
-            Double f = 90;  // Convert.ToDouble(rotationCoefReader.Text);
             
+
             int[,] xy = {
                 { 0,1},
                 { 1,0}
@@ -200,20 +275,10 @@ namespace GrapphicsPartOfLr2_graphics_
                 { 0,-1},
                 { -1,0}
             };
-            int[,] ox = {
-                { 1,0},
-                { 0,-1}
-            };
-            int[,] oy = {
-                { -1,0},
-                { 0,1}
-            };
-            int[,] disc = {
-                {Convert.ToInt32( Math.Cos(f)/180*Math.PI),Convert.ToInt32( Math.Sin(f)/180*Math.PI)},
-                {Convert.ToInt32( Math.Sin(-f)/180*Math.PI),Convert.ToInt32( Math.Cos(f)/180*Math.PI)}
-            };
-            int[,] Matrix = ReadMatrix(Convert.ToInt32(lengthReader.Text));
+           
+            
 
+            int[,] Matrix = ReadMatrix(Convert.ToInt32(lengthReader.Text));
             DrawAll(Matrix);
         }
 
@@ -223,8 +288,11 @@ namespace GrapphicsPartOfLr2_graphics_
             int h = drawArea.ClientSize.Height / 2;
             e.Graphics.TranslateTransform(w, h);
             DrawX(new Point(-w, 0), new Point(w, 0), e.Graphics);
-            DrawY(new Point(0,-h ), new Point(0, h), e.Graphics);
-            DrawMatrix(e.Graphics);
+            DrawY(new Point(0, -h), new Point(0, h), e.Graphics);
+            DrawDefoultFigure(e.Graphics);
+            // DrawDiscretFigure(e.Graphics);
+            DrawOXFigure(e.Graphics);
+            DrawOYFigure(e.Graphics);
 
         }
     }

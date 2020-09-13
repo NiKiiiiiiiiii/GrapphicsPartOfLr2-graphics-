@@ -53,6 +53,7 @@
             // 
             // cordMatrixReader
             // 
+            this.cordMatrixReader.AllowUserToAddRows = false;
             this.cordMatrixReader.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.cordMatrixReader.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
