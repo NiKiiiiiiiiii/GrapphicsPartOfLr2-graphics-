@@ -30,15 +30,15 @@
         {
             this.lengthReader = new System.Windows.Forms.TextBox();
             this.cordMatrixReader = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lengthApplyButton = new System.Windows.Forms.Button();
             this.rotationCoefReader = new System.Windows.Forms.TextBox();
             this.OxCoefreader = new System.Windows.Forms.TextBox();
             this.xyReader = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.oyCoefReader = new System.Windows.Forms.TextBox();
             this.drawButton = new System.Windows.Forms.Button();
             this.drawArea = new System.Windows.Forms.PictureBox();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.cordMatrixReader)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.drawArea)).BeginInit();
             this.SuspendLayout();
@@ -58,23 +58,11 @@
             this.cordMatrixReader.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            this.cordMatrixReader.Location = new System.Drawing.Point(22, 86);
+            this.cordMatrixReader.Location = new System.Drawing.Point(22, 81);
             this.cordMatrixReader.Name = "cordMatrixReader";
-            this.cordMatrixReader.Size = new System.Drawing.Size(90, 462);
+            this.cordMatrixReader.Size = new System.Drawing.Size(183, 467);
             this.cordMatrixReader.TabIndex = 1;
             this.cordMatrixReader.Visible = false;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Column1";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 25;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Column2";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 25;
             // 
             // lengthApplyButton
             // 
@@ -110,17 +98,17 @@
             this.xyReader.TabIndex = 5;
             this.xyReader.Text = "Input xy coef ";
             // 
-            // textBox1
+            // oyCoefReader
             // 
-            this.textBox1.Location = new System.Drawing.Point(22, 634);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(90, 20);
-            this.textBox1.TabIndex = 6;
-            this.textBox1.Text = "Input oy coef ";
+            this.oyCoefReader.Location = new System.Drawing.Point(22, 634);
+            this.oyCoefReader.Name = "oyCoefReader";
+            this.oyCoefReader.Size = new System.Drawing.Size(90, 20);
+            this.oyCoefReader.TabIndex = 6;
+            this.oyCoefReader.Text = "Input oy coef ";
             // 
             // drawButton
             // 
-            this.drawButton.Location = new System.Drawing.Point(130, 594);
+            this.drawButton.Location = new System.Drawing.Point(130, 582);
             this.drawButton.Name = "drawButton";
             this.drawButton.Size = new System.Drawing.Size(99, 34);
             this.drawButton.TabIndex = 7;
@@ -139,6 +127,18 @@
             this.drawArea.Visible = false;
             this.drawArea.Paint += new System.Windows.Forms.PaintEventHandler(this.drawArea_Paint);
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Column1";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 70;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Column2";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 70;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,7 +146,7 @@
             this.ClientSize = new System.Drawing.Size(1174, 658);
             this.Controls.Add(this.drawArea);
             this.Controls.Add(this.drawButton);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.oyCoefReader);
             this.Controls.Add(this.xyReader);
             this.Controls.Add(this.OxCoefreader);
             this.Controls.Add(this.rotationCoefReader);
@@ -166,15 +166,15 @@
 
         private System.Windows.Forms.TextBox lengthReader;
         private System.Windows.Forms.DataGridView cordMatrixReader;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.Button lengthApplyButton;
         private System.Windows.Forms.TextBox rotationCoefReader;
         private System.Windows.Forms.TextBox OxCoefreader;
         private System.Windows.Forms.TextBox xyReader;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox oyCoefReader;
         private System.Windows.Forms.Button drawButton;
         private System.Windows.Forms.PictureBox drawArea;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
     }
 }
 
